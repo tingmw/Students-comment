@@ -15,22 +15,52 @@ body, html {
 
 /* 左側面板 */
 .left-panel {
-    height: 100vh;
     background-color: #ffffff;
     /* 邊框改淡，讓分割感不要那麼重 */
     border-right: 1px solid #e2e8f0;
     overflow-y: auto;
     scrollbar-width: thin;
-    padding-top: 20px; /* 上方增加一點留白 */
+    /* padding-top: 20px;  Removed to let p-4 handle it */
+    min-width: 250px; /* 防止縮得太小 */
 }
 
 /* 右側面板 */
 .right-panel {
-    height: 100vh;
     overflow-y: auto;
     background-color: #f1f5f9;
     padding: 2rem 3rem; /* 左右內距加大，讓畫面更有雜誌感 */
+    min-width: 300px; /* 防止縮得太小 */
 }
+
+/* 拖曳調整條 */
+.resizer {
+    width: 5px;
+    background-color: #cbd5e1;
+    cursor: col-resize;
+    transition: background-color 0.2s;
+    flex-shrink: 0; /* 防止被壓縮 */
+}
+
+.resizer:hover, .resizer.active {
+    background-color: #94a3b8; /* Hover 時變深 */
+}
+
+/* 自定義生成按鈕 */
+.btn-generate {
+    background-color: #0f172a;
+    color: #ffffff;
+    border: 1px solid #0f172a;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.btn-generate:hover {
+    background-color: #ffffff;
+    color: #0f172a;
+    border: 1px solid #0f172a;
+}
+
+/* 標籤設計 (重點修改) */
 
 /* 標籤設計 (重點修改) */
 .trait-tag {
@@ -102,26 +132,29 @@ body, html {
     body, html {
         font-size: 14px; /* 手機上字體稍微縮回來一點，不然會太擠 */
     }
-    
-    .right-panel {
-        padding: 1.5rem; /* 手機版內距縮小 */
-    }
-    
-    .comment-output-container {
-        padding: 1.5rem;
-        margin-top: 2rem; /* 手機版不需要移這麼下面 */
-    }
 
+    .resizer {
+        display: none;
+    }
+    
     .left-panel {
+        width: 100% !important;
         height: auto;
-        max-height: 35vh;
+        max-height: 40vh; /* 稍微增加高度 */
         border-right: none;
         border-bottom: 1px solid #e2e8f0;
         padding-bottom: 1rem;
     }
     
     .right-panel {
+        width: 100% !important;
         height: auto;
-        min-height: 65vh;
+        min-height: 60vh;
+        padding: 1.5rem; /* 手機版內距縮小 */
+    }
+    
+    .comment-output-container {
+        padding: 1.5rem;
+        margin-top: 2rem; /* 手機版不需要移這麼下面 */
     }
 }

@@ -8,10 +8,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container-fluid h-100">
-        <div class="row h-100">
-            <!-- Left Side: Input and Selection (35%) -->
-            <div class="col-md-4 left-panel p-4">
+    <div class="container-fluid h-100 p-0">
+        <div class="d-flex h-100 flex-column flex-md-row" id="mainContainer">
+            <!-- Left Side: Input and Selection (Initial 35%) -->
+            <div class="left-panel p-4" id="leftPanel" style="width: 35%;">
                 <h3 class="mb-4">評語產生器</h3>
                 <div class="mb-3">
                     <label for="studentName" class="form-label">學生姓名</label>
@@ -25,11 +25,14 @@
                         {% endfor %}
                     </div>
                 </div>
-                <button class="btn btn-primary w-100 mt-3" onclick="generateComment()">生成評語</button>
+                <button class="btn btn-generate w-100 mt-3" onclick="generateComment()">生成評語</button>
             </div>
 
-            <!-- Right Side: Output (65%) -->
-            <div class="col-md-8 right-panel p-4 bg-light">
+            <!-- Resizer Handle -->
+            <div class="resizer" id="resizer"></div>
+
+            <!-- Right Side: Output (Remaining width) -->
+            <div class="right-panel p-4 bg-light flex-grow-1" id="rightPanel">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h3>產生的評語</h3>
                     <button class="btn btn-outline-secondary btn-sm" onclick="copyToClipboard()">複製評語</button>

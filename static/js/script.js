@@ -67,3 +67,47 @@ function copyToClipboard() {
         console.error('無法複製文字: ', err);
     });
 }
+
+// Resizable Logic
+document.addEventListener('DOMContentLoaded', function() {
+    const resizer = document.getElementById('resizer');
+    const leftPanel = document.getElementById('leftPanel');
+    const mainContainer = document.getElementById('mainContainer');
+
+    if (!resizer || !leftPanel || !mainContainer) return;
+
+    let isResizing = false;
+
+    resizer.addEventListener('mousedown', function(e) {
+        isResizing = true;
+        resizer.classList.add('active');
+        document.body.style.cursor = 'col-resize';
+        document.body.style.userSelect = 'none'; // Disable text selection
+    });
+
+    document.addEventListener('mousemove', function(e) {
+        if (!isResizing) return;
+
+        // Calculate percentage width
+        const containerRect = mainContainer.getBoundingClientRect();
+        const newWidth = e.clientX - containerRect.left;
+        
+        // Convert to percentage to keep it responsive-ish
+        let percentage = (newWidth / containerRect.width) * 100;
+
+        // Set limits (min 20%, max 80%)
+        if (percentage < 20) percentage = 20;
+        if (percentage > 80) percentage = 80;
+
+        leftPanel.style.width = `${percentage}%`;
+    });
+
+    document.addEventListener('mouseup', function(e) {
+        if (isResizing) {
+            isResizing = false;
+            resizer.classList.remove('active');
+            document.body.style.cursor = '';
+            document.body.style.userSelect = '';
+        }
+    });
+});
