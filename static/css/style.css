@@ -1,98 +1,127 @@
-/* 引入 Google Fonts 讓字體更漂亮 (建議加在 HTML head) */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+/* 引入 Google Fonts: 增加 600/700 字重，讓標題更有力 */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 body, html {
     height: 100%;
     margin: 0;
-    /* 改用 Inter 字體，看起來更像現代 App */
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background-color: #f8f9fa; /* 背景改為極淡的灰，不是死白 */
-    color: #334155; /* 字體改為深灰，閱讀比較不累 */
+    /* 1. 背景調整：使用更高級的 "霧灰白" */
+    background-color: #f1f5f9; 
+    /* 2. 字體顏色：更深的灰黑色，對比度更高，讀起來更清晰 */
+    color: #1e293b; 
+    /* 3. 全局字體加大：讓整體視覺更大器 */
+    font-size: 16px; 
 }
 
-/* 左側面板：保持乾淨，加強右邊界線 */
+/* 左側面板 */
 .left-panel {
     height: 100vh;
     background-color: #ffffff;
+    /* 邊框改淡，讓分割感不要那麼重 */
     border-right: 1px solid #e2e8f0;
     overflow-y: auto;
-    /* 讓卷軸稍微漂亮一點 (Chrome/Safari) */
     scrollbar-width: thin;
+    padding-top: 20px; /* 上方增加一點留白 */
 }
 
-/* 右側面板：給予呼吸空間 */
+/* 右側面板 */
 .right-panel {
     height: 100vh;
     overflow-y: auto;
-    background-color: #f8f9fa;
-    padding: 2rem; /* 增加內距，不要貼邊 */
+    background-color: #f1f5f9;
+    padding: 2rem 3rem; /* 左右內距加大，讓畫面更有雜誌感 */
 }
 
-/* 標籤設計：更像現代 App 的按鈕 */
+/* 標籤設計 (重點修改) */
 .trait-tag {
-    display: inline-block; /* 確保 padding 正常運作 */
-    margin: 4px; /* 標籤之間要有空隙 */
-    padding: 8px 16px;
-    border-radius: 50px; /* 變成完全橢圓 */
+    display: inline-block;
+    margin: 6px; /* 間距加大 */
+    /* 4. 標籤字體加大 */
+    padding: 10px 22px; 
+    border-radius: 8px; /* 改用微圓角 (8px)，比全圓 (50px) 看起來更穩重、現代 */
     background-color: #ffffff;
-    color: #64748b;
-    border: 1px solid #e2e8f0;
-    font-size: 0.9rem;
+    /* 字體顏色改為中性灰 */
+    color: #64748b; 
+    /* 邊框拿掉，改用更細緻的陰影 */
+    border: 1px solid transparent; 
+    font-size: 1rem; /* 字體加大 */
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); /* 讓動畫更滑順 */
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* 輕微陰影 */
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04); /* 極淡的陰影 */
 }
 
 .trait-tag:hover {
-    background-color: #f1f5f9;
-    border-color: #cbd5e1;
-    transform: translateY(-1px); /* 滑鼠碰到時微微浮起 */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    background-color: #ffffff;
+    transform: translateY(-2px);
+    color: #0f172a;
+    /* 懸停時陰影加深，產生浮起感 */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); 
 }
 
-/* 標籤選中狀態 */
+/* 標籤選中狀態 (配色核心) */
 .trait-tag.active {
-    background-color: #4f46e5; /* 使用現代靛藍色 */
-    color: white;
-    border-color: #4f46e5;
-    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3); /* 發光效果 */
+    /* 5. 配色升級：放棄亮藍，改用 "午夜深藍" (Midnight Blue) */
+    background-color: #0f172a; 
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25); /* 深色光暈 */
 }
 
-/* 輸出區塊：擬態成一張紙或卡片 */
+/* 輸出區塊 */
 .comment-output-container {
     background-color: #ffffff;
-    border-radius: 12px;
-    padding: 2rem;
-    min-height: 200px;
-    font-size: 1.1rem;
-    line-height: 1.8; /* 行距加大，閱讀更舒服 */
-    color: #1e293b;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); /* 浮起來的感覺 */
+    border-radius: 16px; /* 更大的圓角 */
+    padding: 3rem; /* 內容留白更多 */
+    min-height: 250px;
+    
+    /* 6. 字體與行距調整 */
+    font-size: 1.15rem; /* 字體再加大一點 */
+    line-height: 1.9; /* 行距拉開，閱讀壓力變小 */
+    color: #334155; /* 深岩灰色 */
+    
+    border: none; /* 移除邊框，只用陰影 */
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.01); /* 高級的擴散陰影 */
     position: relative;
-    margin-top: 1rem;
+    
+    /* 7. 位置調整：依照要求往下移 */
+    margin-top: 4rem; 
 }
 
-/* Loading 動畫調整 */
+/* Loading 動畫顏色配合 */
 #loading {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #4f46e5;
+    color: #0f172a; /* 配合主色調 */
     font-weight: 600;
 }
 
+/* 手機版適配 */
 @media (max-width: 768px) {
+    body, html {
+        font-size: 14px; /* 手機上字體稍微縮回來一點，不然會太擠 */
+    }
+    
+    .right-panel {
+        padding: 1.5rem; /* 手機版內距縮小 */
+    }
+    
+    .comment-output-container {
+        padding: 1.5rem;
+        margin-top: 2rem; /* 手機版不需要移這麼下面 */
+    }
+
     .left-panel {
         height: auto;
-        max-height: 40vh; /* 手機上左側選單只佔 40% 高度 */
+        max-height: 35vh;
         border-right: none;
-        border-bottom: 1px solid #dee2e6;
+        border-bottom: 1px solid #e2e8f0;
+        padding-bottom: 1rem;
     }
+    
     .right-panel {
-        height: auto; /* 右側內容自動長高 */
-        min-height: 60vh;
+        height: auto;
+        min-height: 65vh;
     }
 }
