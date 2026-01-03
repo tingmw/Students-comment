@@ -47,7 +47,7 @@ body, html {
 }
 
 /* 自定義生成按鈕 */
-.btn-generate {
+.btn.btn-generate {
     background-color: #000000;
     color: #ffffff;
     border: 1px solid #000000;
@@ -55,7 +55,7 @@ body, html {
     font-weight: 500;
 }
 
-.btn-generate:hover {
+.btn.btn-generate:hover {
     background-color: #ffffff;
     color: #000000;
     border: 1px solid #000000;
