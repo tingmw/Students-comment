@@ -1,51 +1,98 @@
+/* 引入 Google Fonts 讓字體更漂亮 (建議加在 HTML head) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
 body, html {
     height: 100%;
     margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* 改用 Inter 字體，看起來更像現代 App */
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: #f8f9fa; /* 背景改為極淡的灰，不是死白 */
+    color: #334155; /* 字體改為深灰，閱讀比較不累 */
 }
 
+/* 左側面板：保持乾淨，加強右邊界線 */
 .left-panel {
     height: 100vh;
-    border-right: 1px solid #dee2e6;
+    background-color: #ffffff;
+    border-right: 1px solid #e2e8f0;
     overflow-y: auto;
+    /* 讓卷軸稍微漂亮一點 (Chrome/Safari) */
+    scrollbar-width: thin;
 }
 
+/* 右側面板：給予呼吸空間 */
 .right-panel {
     height: 100vh;
     overflow-y: auto;
+    background-color: #f8f9fa;
+    padding: 2rem; /* 增加內距，不要貼邊 */
 }
 
+/* 標籤設計：更像現代 App 的按鈕 */
 .trait-tag {
-    padding: 6px 12px;
-    border-radius: 20px;
-    background-color: #f0f2f5;
+    display: inline-block; /* 確保 padding 正常運作 */
+    margin: 4px; /* 標籤之間要有空隙 */
+    padding: 8px 16px;
+    border-radius: 50px; /* 變成完全橢圓 */
+    background-color: #ffffff;
+    color: #64748b;
+    border: 1px solid #e2e8f0;
+    font-size: 0.9rem;
+    font-weight: 500;
     cursor: pointer;
-    transition: all 0.2s ease;
-    border: 1px solid transparent;
-    user-select: none;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); /* 讓動畫更滑順 */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* 輕微陰影 */
 }
 
 .trait-tag:hover {
-    background-color: #e4e6e9;
+    background-color: #f1f5f9;
+    border-color: #cbd5e1;
+    transform: translateY(-1px); /* 滑鼠碰到時微微浮起 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
+/* 標籤選中狀態 */
 .trait-tag.active {
-    background-color: #0d6efd;
+    background-color: #4f46e5; /* 使用現代靛藍色 */
     color: white;
-    border-color: #0d6efd;
+    border-color: #4f46e5;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3); /* 發光效果 */
 }
 
+/* 輸出區塊：擬態成一張紙或卡片 */
 .comment-output-container {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 2rem;
     min-height: 200px;
     font-size: 1.1rem;
-    line-height: 1.6;
-    white-space: pre-wrap;
+    line-height: 1.8; /* 行距加大，閱讀更舒服 */
+    color: #1e293b;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); /* 浮起來的感覺 */
     position: relative;
+    margin-top: 1rem;
 }
 
+/* Loading 動畫調整 */
 #loading {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    color: #4f46e5;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .left-panel {
+        height: auto;
+        max-height: 40vh; /* 手機上左側選單只佔 40% 高度 */
+        border-right: none;
+        border-bottom: 1px solid #dee2e6;
+    }
+    .right-panel {
+        height: auto; /* 右側內容自動長高 */
+        min-height: 60vh;
+    }
 }
