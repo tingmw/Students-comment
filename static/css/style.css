@@ -1,0 +1,51 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.left-panel {
+    height: 100vh;
+    border-right: 1px solid #dee2e6;
+    overflow-y: auto;
+}
+
+.right-panel {
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.trait-tag {
+    padding: 6px 12px;
+    border-radius: 20px;
+    background-color: #f0f2f5;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    user-select: none;
+}
+
+.trait-tag:hover {
+    background-color: #e4e6e9;
+}
+
+.trait-tag.active {
+    background-color: #0d6efd;
+    color: white;
+    border-color: #0d6efd;
+}
+
+.comment-output-container {
+    min-height: 200px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    position: relative;
+}
+
+#loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
