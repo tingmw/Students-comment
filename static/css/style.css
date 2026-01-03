@@ -10,7 +10,7 @@ body, html {
     /* 2. 字體顏色：更深的灰黑色，對比度更高，讀起來更清晰 */
     color: #1e293b; 
     /* 3. 全局字體加大：讓整體視覺更大器 */
-    font-size: 16px; 
+    font-size: 18px; 
 }
 
 /* 左側面板 */
@@ -22,6 +22,7 @@ body, html {
     scrollbar-width: thin;
     /* padding-top: 20px;  Removed to let p-4 handle it */
     min-width: 250px; /* 防止縮得太小 */
+    flex-shrink: 0; /* 防止被右側擠壓，確保版面配置穩定 */
 }
 
 /* 右側面板 */
@@ -47,20 +48,18 @@ body, html {
 
 /* 自定義生成按鈕 */
 .btn-generate {
-    background-color: #0f172a;
+    background-color: #000000;
     color: #ffffff;
-    border: 1px solid #0f172a;
+    border: 1px solid #000000;
     transition: all 0.3s ease;
     font-weight: 500;
 }
 
 .btn-generate:hover {
     background-color: #ffffff;
-    color: #0f172a;
-    border: 1px solid #0f172a;
+    color: #000000;
+    border: 1px solid #000000;
 }
-
-/* 標籤設計 (重點修改) */
 
 /* 標籤設計 (重點修改) */
 .trait-tag {
@@ -114,7 +113,11 @@ body, html {
     position: relative;
     
     /* 7. 位置調整：依照要求往下移 */
-    margin-top: 4rem; 
+    margin-top: 4rem;
+    
+    /* 新增：防止文字過長撐開版面 */
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 /* Loading 動畫顏色配合 */
