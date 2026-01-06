@@ -39,20 +39,12 @@ def generate():
         f"你是一位國小老師。請為一位學生撰寫期末評語。\n"
         f"學生姓名：「{student_name}」\n"
         f"學生特質：{traits_str}\n"
-        f"需求：風格正向積極，字數約100字，以學生名字為主詞，用語平易近人。"
+        f"需求：風格正向積極，字數100字左右，以學生名字為主詞，並且用詞不要太浮誇，平易近人即可。"
     )
     try:
-        # 設定 generation_config 可以控制隨機性，也可以限制輸出長度以節省 Token
-        response = model.generate_content(
-            prompt,
-            generation_config=genai.types.GenerationConfig(
-                max_output_tokens=300, # 限制回傳長度，避免異常消耗
-                temperature=0.7
-            )
-        )
+        response = model.generate_content(prompt)
         return jsonify({'comment': response.text})
 
-    # --- 修改重點 4: 捕捉特定錯誤 (防止額度爆掉時伺服器崩潰) ---
     except exceptions.ResourceExhausted:
         # 這是 HTTP 429 錯誤，代表免費額度用完或請求太快
         return jsonify({'error': '系統忙碌中（已達每分鐘/每日免費額度上限），請稍後再試。'}), 429

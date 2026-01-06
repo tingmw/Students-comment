@@ -16,11 +16,15 @@ async function generateComment() {
     const traits = Array.from(selectedTraits);
     const output = document.getElementById('commentOutput');
     const loading = document.getElementById('loading');
+    const generateBtn = document.getElementById('generateBtn');
 
     if (traits.length === 0) {
         alert('請至少選擇一項學生特質');
         return;
     }
+
+    generateBtn.disabled = true;
+    generateBtn.innerText = "生成中...";
 
     output.innerText = '';
     output.classList.add('text-muted');
@@ -41,15 +45,17 @@ async function generateComment() {
             output.innerText = data.comment;
             output.classList.remove('text-muted');
         } else {
-            alert('錯誤: ' + data.error);
-            output.innerText = '生成失敗，請重試。';
+            //alert('錯誤: ' + data.error);
+            //output.innerText = '生成失敗，請重試。';
+            output.innerHTML = `<span class="text-danger">錯誤: ${data.error}</span>`;
         }
     } catch (error) {
         console.error('Error:', error);
         alert('發生連線錯誤');
         output.innerText = '發生連線錯誤，請檢查網路。';
     } finally {
-        loading.classList.add('d-none');
+        loading.classList.add('d-none');generateBtn.disabled = false;
+        generateBtn.innerText = "生成評語";
     }
 }
 
