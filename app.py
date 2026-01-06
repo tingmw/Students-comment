@@ -2,13 +2,14 @@ import os
 from flask import Flask, render_template, request, jsonify
 import google.generativeai as genai
 from dotenv import load_dotenv
+from google.api_core import exceptions
 
 load_dotenv()
 
 app = Flask(__name__)
 
 # Configure Gemini API
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"), transport='rest')
 model = genai.GenerativeModel('gemini-2.5-flash')
 
 TRAITS = [
@@ -34,13 +35,33 @@ def generate():
         return jsonify({'error': '請選擇至少一項特質'}), 400
 
     traits_str = "、".join(selected_traits)
-    prompt = f"請為一位國小學生撰寫期末評語。學生姓名是「{student_name}」，他/她的特質包括：{traits_str}。評語風格需正向積極，字數約100字左右，並以學生的名字作為評語的主詞，並且用詞不要太浮誇，平易近人即可。"
-
+    prompt = (
+        f"你是一位國小老師。請為一位學生撰寫期末評語。\n"
+        f"學生姓名：「{student_name}」\n"
+        f"學生特質：{traits_str}\n"
+        f"需求：風格正向積極，字數約100字，以學生名字為主詞，用語平易近人。"
+    )
     try:
-        response = model.generate_content(prompt)
+        # 設定 generation_config 可以控制隨機性，也可以限制輸出長度以節省 Token
+        response = model.generate_content(
+            prompt,
+            generation_config=genai.types.GenerationConfig(
+                max_output_tokens=300, # 限制回傳長度，避免異常消耗
+                temperature=0.7
+            )
+        )
         return jsonify({'comment': response.text})
+
+    # --- 修改重點 4: 捕捉特定錯誤 (防止額度爆掉時伺服器崩潰) ---
+    except exceptions.ResourceExhausted:
+        # 這是 HTTP 429 錯誤，代表免費額度用完或請求太快
+        return jsonify({'error': '系統忙碌中（已達每分鐘/每日免費額度上限），請稍後再試。'}), 429
+    except exceptions.ServiceUnavailable:
+        return jsonify({'error': 'Google 服務暫時無法連線，請稍後再試。'}), 503
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        # 記錄錯誤到 server log (PythonAnywhere 的 error log)
+        print(f"Error: {e}") 
+        return jsonify({'error': '發生未預期的錯誤，請聯繫管理員。'}), 500
 
 if __name__ == '__main__':
     app.run(debug=False)
