@@ -34,7 +34,7 @@ def generate():
         return jsonify({'error': '請選擇至少一項特質'}), 400
 
     traits_str = "、".join(selected_traits)
-    prompt = f"請為一位國小學生撰寫期末評語。學生姓名是「{student_name}」，他/她的特質包括：{traits_str}。評語風格需正向積極，字數約100字左右，並以學生的名字作為評語的主詞。"
+    prompt = f"請為一位國小學生撰寫期末評語。學生姓名是「{student_name}」，他/她的特質包括：{traits_str}。評語風格需正向積極，字數約100字左右，並以學生的名字作為評語的主詞，並且用詞不要太浮誇，平易近人即可。"
 
     try:
         response = model.generate_content(prompt)
